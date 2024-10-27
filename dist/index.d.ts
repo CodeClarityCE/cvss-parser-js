@@ -1,0 +1,12 @@
+import { CVSS2Calculator } from './src/calculators/cvss2/calc.js';
+import { CVSS3Calculator } from './src/calculators/cvss3/calc.js';
+import { CVSS31Calculator } from './src/calculators/cvss31/calc.js';
+import { CVSS2VectorParser } from './src/parsers/cvss2/parser.js';
+import { CVSS3VectorParser } from './src/parsers/cvss3/parser.js';
+import { CVSS31VectorParser } from './src/parsers/cvss31/parser.js';
+export declare function createCVSS2Parser(): CVSS2VectorParser;
+export declare function createCVSS3Parser(): CVSS3VectorParser;
+export declare function createCVSS31Parser(): CVSS31VectorParser;
+export declare function createCVSS2Calculator(): CVSS2Calculator;
+export declare function createCVSS3Calculator(): CVSS3Calculator;
+export declare function createCVSS31Calculator(): CVSS31Calculator;
