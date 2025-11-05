@@ -3,7 +3,8 @@
  * Spec: https://www.first.org/cvss/v2/guide
  */
 
-import type { CVSS2Info ,
+import {
+    type CVSS2Info,
     AccessVector,
     AccessComplexity,
     Authentication,

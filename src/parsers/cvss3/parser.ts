@@ -3,7 +3,8 @@
  * Spec: https://www.first.org/cvss/v3.0/specification-document
  */
 
-import type { CVSS3Info ,
+import {
+    type CVSS3Info,
     AttackVector,
     AttackComplexity,
     PrivilegesRequired,
