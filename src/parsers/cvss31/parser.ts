@@ -3,8 +3,7 @@
  * Spec: https://www.first.org/cvss/v3.1/specification-document
  */
 
-import { CVSS31Info } from '../../types/fields/cvss31.js';
-import {
+import type { CVSS31Info ,
     AttackVector,
     AttackComplexity,
     PrivilegesRequired,
@@ -196,7 +195,7 @@ export class CVSS31VectorParser {
         const parts = vector.split('/');
 
         // If the first part is the cvss version, then remove it
-        if (parts[0] == 'CVSS') {
+        if (parts[0] === 'CVSS') {
             parts.shift();
         }
 
