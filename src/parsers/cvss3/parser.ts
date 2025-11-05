@@ -222,6 +222,7 @@ export class CVSS3VectorParser {
             const partsArray = part.split(':');
             const partId = partsArray[0];
             const partValue = partsArray[1];
+            if (!partValue) continue; // Skip if partValue is undefined
             switch (partId) {
                 case 'AV':
                     parsedVector.AttackVector = this.parseAV(partValue);
