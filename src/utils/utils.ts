@@ -7,7 +7,7 @@
  */
 export function roundUp(value: number): number {
     const rounded = Math.round(value * 100000);
-    if (rounded % 10000 == 0) {
+    if (rounded % 10000 === 0) {
         return rounded / 100000.0;
     } else {
         return (Math.floor(rounded / 10000) + 1) / 10.0;

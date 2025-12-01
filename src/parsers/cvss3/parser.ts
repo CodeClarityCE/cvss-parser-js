@@ -3,8 +3,8 @@
  * Spec: https://www.first.org/cvss/v3.0/specification-document
  */
 
-import { CVSS3Info } from '../../types/fields/cvss3.js';
 import {
+    type CVSS3Info,
     AttackVector,
     AttackComplexity,
     PrivilegesRequired,
@@ -196,7 +196,7 @@ export class CVSS3VectorParser {
         const parts = vector.split('/');
 
         // If the first part is the cvss version, then remove it
-        if (parts[0] == 'CVSS') {
+        if (parts[0] === 'CVSS') {
             parts.shift();
         }
 
@@ -222,6 +222,7 @@ export class CVSS3VectorParser {
             const partsArray = part.split(':');
             const partId = partsArray[0];
             const partValue = partsArray[1];
+            if (!partValue) continue; // Skip if partValue is undefined
             switch (partId) {
                 case 'AV':
                     parsedVector.AttackVector = this.parseAV(partValue);

@@ -3,6 +3,7 @@
  * Spec: https://www.first.org/cvss/v3.1/specification-document
  */
 
+import type { CVSS31Info } from '../../types/fields/cvss31.js';
 import {
     AttackVector,
     AttackComplexity,
@@ -14,8 +15,7 @@ import {
     RemediationLevel,
     ReportConfidence,
     SecurityRequirements
-} from '../../types/fields/cvss31.js';
-import { CVSS31Info } from '../../types/fields/cvss31.js';
+ } from '../../types/fields/cvss31.js';
 import { roundUp } from '../../utils/utils.js';
 
 export class CVSS31Calculator {
@@ -79,7 +79,7 @@ export class CVSS31Calculator {
     public computeTemporalScore(cvss3Info: CVSS31Info): number {
         this.cvss3Info = cvss3Info;
 
-        if (this.baseScore == undefined) {
+        if (this.baseScore === undefined) {
             this.computeBaseScore(cvss3Info);
         }
 
@@ -112,14 +112,14 @@ export class CVSS31Calculator {
 
         let environmentalScore = 0.0;
 
-        if (this.cvss3Info.Scope == Scope.UNCHANGED) {
+        if (this.cvss3Info.Scope === Scope.UNCHANGED) {
             environmentalScore = roundUp(
                 roundUp(Math.min(modifiedImpactSubScore + modifiedExploitabilitySubScore, 10.0)) *
                     exploitCodeMaturity *
                     remediationLevel *
                     reportConfidence
             );
-        } else if (this.cvss3Info.Scope == Scope.CHANGED) {
+        } else if (this.cvss3Info.Scope === Scope.CHANGED) {
             environmentalScore = roundUp(
                 roundUp(
                     Math.min(1.08 * (modifiedImpactSubScore + modifiedExploitabilitySubScore), 10.0)
@@ -204,7 +204,7 @@ export class CVSS31Calculator {
     private computeImpactSubScore(): number {
         const baseImpactScore = this.computeBaseImpactSubScore();
 
-        if (this.cvss3Info.Scope == Scope.UNCHANGED) {
+        if (this.cvss3Info.Scope === Scope.UNCHANGED) {
             const impactSubScore = 6.42 * baseImpactScore;
             this.impactSubScore = impactSubScore;
             return impactSubScore;
@@ -296,9 +296,9 @@ export class CVSS31Calculator {
             case PrivilegesRequired.NONE:
                 return 0.85;
             case PrivilegesRequired.LOW:
-                return this.cvss3Info.Scope == Scope.CHANGED ? 0.68 : 0.62;
+                return this.cvss3Info.Scope === Scope.CHANGED ? 0.68 : 0.62;
             case PrivilegesRequired.HIGH:
-                return this.cvss3Info.Scope == Scope.CHANGED ? 0.5 : 0.27;
+                return this.cvss3Info.Scope === Scope.CHANGED ? 0.5 : 0.27;
             default:
                 return 0.0;
         }

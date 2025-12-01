@@ -3,6 +3,7 @@
  * Spec: https://www.first.org/cvss/v2/guide
  */
 
+import type { CVSS2Info } from '../../types/fields/cvss2.js';
 import {
     AccessVector,
     AccessComplexity,
@@ -14,8 +15,7 @@ import {
     CollateralDamagePotential,
     TargetDistribution,
     SecurityRequirements
-} from '../../types/fields/cvss2.js';
-import { CVSS2Info } from '../../types/fields/cvss2.js';
+ } from '../../types/fields/cvss2.js';
 import { roundUp } from '../../utils/utils.js';
 
 export class CVSS2Calculator {
@@ -55,7 +55,7 @@ export class CVSS2Calculator {
         this.cvss2Info = cvss2Info;
         const impact = this.computeImpactSubscore();
         const exploitability = this.computeExploitabilitySubscore();
-        const fImpact = impact == 0 ? 0 : 1.176;
+        const fImpact = impact === 0 ? 0 : 1.176;
 
         const baseScore = (0.6 * impact + 0.4 * exploitability - 1.5) * fImpact;
         this.baseScore = baseScore;
@@ -70,7 +70,7 @@ export class CVSS2Calculator {
     public computeTemporalScore(cvss2Info: CVSS2Info): number {
         this.cvss2Info = cvss2Info;
 
-        if (this.baseScore == undefined) {
+        if (this.baseScore === undefined) {
             this.computeBaseScore(cvss2Info);
         }
 
@@ -355,7 +355,7 @@ export class CVSS2Calculator {
     private computeAdjustedBaseSubScore(): number {
         const impact = this.computeAdjustedImpactScore();
         const exploitability = this.computeExploitabilitySubscore();
-        const fImpact = impact == 0 ? 0 : 1.176;
+        const fImpact = impact === 0 ? 0 : 1.176;
 
         let baseScore = (0.6 * impact + 0.4 * exploitability - 1.5) * fImpact;
         baseScore = Math.round(baseScore * 10) / 10; // round to one decimal place

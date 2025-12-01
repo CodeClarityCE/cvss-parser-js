@@ -3,8 +3,8 @@
  * Spec: https://www.first.org/cvss/v2/guide
  */
 
-import { CVSS2Info } from '../../types/fields/cvss2.js';
 import {
+    type CVSS2Info,
     AccessVector,
     AccessComplexity,
     Authentication,
@@ -198,7 +198,7 @@ export class CVSS2VectorParser {
         const parts = vector.split('/');
 
         // If the first part is the cvss version, then remove it
-        if (parts[0] == 'CVSS') {
+        if (parts[0] === 'CVSS') {
             parts.shift();
         }
 
@@ -224,6 +224,7 @@ export class CVSS2VectorParser {
             const partsArray = part.split(':');
             const partId = partsArray[0];
             const partValue = partsArray[1];
+            if (!partValue) continue; // Skip if partValue is undefined
             switch (partId) {
                 case 'AV':
                     parsedVector.AccessVector = this.parseAV(partValue);
